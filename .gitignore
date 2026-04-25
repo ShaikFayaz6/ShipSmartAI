@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# AWS
+.aws/
+
+# OS
+.DS_Store
+Thumbs.db
