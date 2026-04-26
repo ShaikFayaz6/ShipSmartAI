@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: shipsmart-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: RATE_MODE
+        sync: false
+      - key: FEDEX_CLIENT_ID
+        sync: false
+      - key: FEDEX_CLIENT_SECRET
+        sync: false
+      - key: FEDEX_ACCOUNT_NUMBER
+        sync: false
+      - key: SHIPPO_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: APP_ENV
+        value: production
+      - key: ALLOWED_ORIGINS
+        sync: false
