@@ -8,7 +8,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const apiBaseUrl = import.meta.env.VITE_API_URL || "/api";
+  const apiBaseUrl = import.meta.env.VITE_API_URL || "";
 
   const handleSubmit = async (formData) => {
     setLoading(true);
@@ -23,8 +23,15 @@ export default function App() {
       });
 
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.detail || "Server error");
+        let detail = "Server error";
+        const raw = await res.text();
+        try {
+          const parsed = JSON.parse(raw);
+          detail = parsed.detail || detail;
+        } catch {
+          detail = raw || detail;
+        }
+        throw new Error(detail);
       }
 
       const data = await res.json();
